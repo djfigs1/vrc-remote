@@ -20,18 +20,22 @@ const VRChatButton: React.FC<VRChatButtonProps> = memo((props) => {
     }))
   );
 
+  let disabled = connectionStatus !== "connected";
+
   const onPress = useCallback(() => {
+    if (disabled) return;
     setButton(button, true);
-  }, [button, setButton]);
+  }, [button, setButton, disabled]);
 
   const onRelease = useCallback(() => {
     setButton(button, false);
-  }, [button, setButton]);
+  }, [button, setButton, disabled]);
 
   return (
     <IconButton
       {...props}
-      disabled={connectionStatus !== "connected"}
+      tabIndex={-1}
+      disabled={disabled}
       variant={buttonVariant(pressed)}
       onPointerDown={onPress}
       onPointerUp={onRelease}

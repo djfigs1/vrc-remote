@@ -1,5 +1,7 @@
 export type VRChatAxesInput = keyof VRChatAxesInputState;
 
+export const VRChatMaxMessageLength = 144;
+
 export type VRChatAxesInputState = {
   vertical: number;
   horizontal: number;
@@ -38,4 +40,10 @@ export type VRChatButtonInputState = {
 
 export type VRChatChatboxState = {
   typing: boolean;
+};
+
+export type VRChatState = {
+  axes: VRChatAxesInputState;
+  buttons: VRChatButtonInputState;
+  chatbox: VRChatChatboxState;
 };
