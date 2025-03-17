@@ -33,7 +33,11 @@ const ConnectionInput: React.FC<ConnectionInputProps> = memo(({}) => {
         placeholder="Enter a server address..."
         flex={1}
       />
-      <IconButton onClick={onClick} tabIndex={-1}>
+      <IconButton
+        onClick={onClick}
+        tabIndex={-1}
+        disabled={connectionStatus === "disconnected" && address.length == 0}
+      >
         {connectionStatus === "disconnected" ? <LuLink2 /> : <LuLink2Off />}
       </IconButton>
     </HStack>
