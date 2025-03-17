@@ -23,7 +23,7 @@ let ConnectionText: Record<ConnectionStatus, string> = {
 let ConnectionColors: Record<ConnectionStatus, string | undefined> = {
   disconnected: undefined,
   connecting: "gold",
-  connected: "greenyellow",
+  connected: "green",
 };
 
 const ConnectionIndicator: React.FC<ConnectionIndicatorProps> = memo(({}) => {
