@@ -8,6 +8,7 @@ import VRChatKeyPressListeners, {
 } from "./VRChatKeyboardButtons";
 import ConnectionInput from "./ConnectionInput";
 import VRCRemoteHeader from "./RemoteHeader";
+import MiscActions from "./MiscActions";
 
 type VRCRemoteProps = {};
 
@@ -39,6 +40,9 @@ const keysConfig: VRChatKeyPressConfig = {
   shift: {
     button: "run",
   },
+  m: {
+    button: "quickMenuToggleLeft",
+  },
 };
 
 const VRCRemote: React.FC<VRCRemoteProps> = ({}) => {
@@ -56,11 +60,11 @@ const VRCRemote: React.FC<VRCRemoteProps> = ({}) => {
         <Card.Body>
           <Stack gap="4">
             <MovementControl />
+            <MiscActions />
           </Stack>
         </Card.Body>
         <Card.Footer>
           <HStack flex={1}>
-            <VoiceControl />
             <Box flex={1}>
               <Chatbox />
             </Box>

@@ -1,6 +1,13 @@
 import { useRemoteStore } from "@/data/remote-store";
 import { VRChatMaxMessageLength } from "@/types/vrc";
-import { HStack, IconButton, Input } from "@chakra-ui/react";
+import {
+  Flex,
+  HStack,
+  IconButton,
+  Input,
+  Stack,
+  Switch,
+} from "@chakra-ui/react";
 import React, { KeyboardEvent, useCallback, useState } from "react";
 import { MdSend } from "react-icons/md";
 import { useShallow } from "zustand/shallow";
@@ -27,37 +34,50 @@ const Chatbox: React.FC<ChatboxProps> = ({}) => {
     setTyping(false);
   }, [setTyping]);
 
-  const onSendMessage = useCallback(() => {
+  const submitAndClearMessage = useCallback(() => {
     sendMessage(message);
     setMessage("");
   }, [message]);
 
-  const onKeyDown = useCallback(
+  const onInputKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key == "Enter") {
-        onSendMessage();
+        submitAndClearMessage();
       }
     },
-    [onSendMessage]
+    [submitAndClearMessage]
+  );
+
+  const onInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setMessage(e.target.value);
+    },
+    []
   );
 
   return (
-    <HStack>
-      <Input
-        variant={"subtle"}
-        value={message}
-        disabled={connectionStatus !== "connected"}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Enter a message to send..."
-        maxLength={VRChatMaxMessageLength}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onKeyDown={onKeyDown}
-      />
-      <IconButton disabled={message.length == 0} onClick={onSendMessage}>
-        <MdSend />
-      </IconButton>
-    </HStack>
+    <Stack gap="4">
+      <HStack flex={1}>
+        <Input
+          variant={"subtle"}
+          value={message}
+          disabled={connectionStatus !== "connected"}
+          onChange={onInputChange}
+          placeholder="Enter a message to send..."
+          maxLength={VRChatMaxMessageLength}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onKeyDown={onInputKeyDown}
+        />
+
+        <IconButton
+          disabled={message.length == 0}
+          onClick={submitAndClearMessage}
+        >
+          <MdSend />
+        </IconButton>
+      </HStack>
+    </Stack>
   );
 };
 
